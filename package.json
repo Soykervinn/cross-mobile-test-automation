@@ -32,7 +32,7 @@
     "@wdio/cli": "^9.14.0",
     "@wdio/local-runner": "^9.14.0",
     "@wdio/mocha-framework": "^9.14.0",
-    "@wdio/sauce-service": "^9.0.0",
+    "@wdio/sauce-service": "^9.16.2",
     "@wdio/spec-reporter": "^9.14.0",
     "allure-commandline": "^2.24.0",
     "appium": "^2.18.0",
