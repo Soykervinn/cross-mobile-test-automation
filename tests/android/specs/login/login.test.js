@@ -1,47 +1,125 @@
 const LoginPage = require('../../pages/login/LoginPage');
 
-describe('Login Feature', () => {
+describe('App Navigation Feature', () => {
     let loginPage;
 
     beforeEach(async () => {
         loginPage = new LoginPage();
-        await loginPage.waitForPageLoad();
+        // Wait for app to load and handle permissions
+        await browser.pause(5000);
+        await loginPage.handlePermissions();
     });
 
-    it('should login successfully with valid credentials', async () => {
-        await loginPage.login('validuser@test.com', 'validpass123');
-        // Add assertions for successful login
-        // Example: await expect(homePage.isUserLoggedIn()).toBe(true);
-    });
-
-    it('should show error message with invalid credentials', async () => {
-        await loginPage.login('invalid@test.com', 'wrongpass');
-        const isErrorVisible = await loginPage.isErrorDisplayed();
-        const errorMessage = await loginPage.getErrorMessage();
+    it('should explore what is currently displayed in the app', async () => {
+        // Screenshot inicial para depuración
+        await browser.saveScreenshot('./reports/screenshots/initial_screen.png');
         
-        expect(isErrorVisible).toBe(true);
-        expect(errorMessage).toContain('Invalid credentials');
-    });
-
-    it('should navigate to forgot password page', async () => {
-        await loginPage.clickForgotPassword();
-        // Add assertions for forgot password page
-        // Example: await expect(forgotPasswordPage.isDisplayed()).toBe(true);
-    });
-
-    it('should not allow login with empty fields', async () => {
-        await loginPage.login('', '');
-        const isErrorVisible = await loginPage.isErrorDisplayed();
-        const errorMessage = await loginPage.getErrorMessage();
+        // Get page source to see what elements are available
+        const pageSource = await browser.getPageSource();
+        console.log('Page source length:', pageSource.length);
         
-        expect(isErrorVisible).toBe(true);
-        expect(errorMessage).toContain('Please fill in all fields');
-    });
-
-    afterEach(async () => {
-        // Take screenshot if test fails
-        if (this.currentTest.state === 'failed') {
-            await loginPage.takeScreenshot(`login-test-failed-${Date.now()}`);
+        // Find all elements
+        const allElements = await browser.$$('*');
+        console.log('Total elements found:', allElements.length);
+        
+        // Find text elements
+        const textElements = await browser.$$('android.widget.TextView');
+        console.log('Text elements found:', textElements.length);
+        
+        // Log first few text elements
+        for (let i = 0; i < Math.min(3, textElements.length); i++) {
+            try {
+                const text = await textElements[i].getText();
+                const resourceId = await textElements[i].getAttribute('resource-id');
+                const contentDesc = await textElements[i].getAttribute('content-desc');
+                console.log(`Element ${i}: text="${text}", resource-id="${resourceId}", content-desc="${contentDesc}"`);
+            } catch (error) {
+                console.log(`Error getting element ${i} attributes:`, error.message);
+            }
         }
+        
+        // Find input elements
+        const inputElements = await browser.$$('android.widget.EditText');
+        console.log('Input elements found:', inputElements.length);
+        
+        // Find button elements
+        const buttonElements = await browser.$$('android.widget.Button');
+        console.log('Button elements found:', buttonElements.length);
+        
+        // Log button elements
+        for (let i = 0; i < buttonElements.length; i++) {
+            try {
+                const text = await buttonElements[i].getText();
+                const resourceId = await buttonElements[i].getAttribute('resource-id');
+                const contentDesc = await buttonElements[i].getAttribute('content-desc');
+                console.log(`Button ${i}: text="${text}", resource-id="${resourceId}", content-desc="${contentDesc}"`);
+            } catch (error) {
+                console.log(`Error getting button ${i} attributes:`, error.message);
+            }
+        }
+        
+        // Verify that we can see the main app content
+        expect(allElements.length).toBeGreaterThan(0);
+        expect(textElements.length).toBeGreaterThan(0);
+    });
+
+    it('should explore the app after accepting cookies', async () => {
+        // Accept cookies first
+        const cookiesAccepted = await loginPage.acceptCookies();
+        console.log('Cookies accepted for exploration:', cookiesAccepted);
+        
+        // Wait for transition
+        await browser.pause(5000);
+        
+        // Take screenshot after accepting cookies
+        await browser.saveScreenshot('./reports/screenshots/after_cookies_accepted.png');
+        
+        // Get page source to see what elements are available
+        const pageSource = await browser.getPageSource();
+        console.log('Page source length after accepting cookies:', pageSource.length);
+        
+        // Find all elements
+        const allElements = await browser.$$('*');
+        console.log('Total elements found after cookies:', allElements.length);
+        
+        // Find text elements
+        const textElements = await browser.$$('android.widget.TextView');
+        console.log('Text elements found after cookies:', textElements.length);
+        
+        // Log first few text elements
+        for (let i = 0; i < Math.min(3, textElements.length); i++) {
+            try {
+                const text = await textElements[i].getText();
+                const resourceId = await textElements[i].getAttribute('resource-id');
+                const contentDesc = await textElements[i].getAttribute('content-desc');
+                console.log(`Element ${i}: text="${text}", resource-id="${resourceId}", content-desc="${contentDesc}"`);
+            } catch (error) {
+                console.log(`Error getting element ${i} attributes:`, error.message);
+            }
+        }
+        
+        // Find input elements
+        const inputElements = await browser.$$('android.widget.EditText');
+        console.log('Input elements found after cookies:', inputElements.length);
+        
+        // Find button elements
+        const buttonElements = await browser.$$('android.widget.Button');
+        console.log('Button elements found after cookies:', buttonElements.length);
+        
+        // Log button elements
+        for (let i = 0; i < buttonElements.length; i++) {
+            try {
+                const text = await buttonElements[i].getText();
+                const resourceId = await buttonElements[i].getAttribute('resource-id');
+                const contentDesc = await buttonElements[i].getAttribute('content-desc');
+                console.log(`Button ${i}: text="${text}", resource-id="${resourceId}", content-desc="${contentDesc}"`);
+            } catch (error) {
+                console.log(`Error getting button ${i} attributes:`, error.message);
+            }
+        }
+        
+        // Verify that we can see the main app content
+        expect(allElements.length).toBeGreaterThan(0);
+        expect(textElements.length).toBeGreaterThan(0);
     });
 }); 

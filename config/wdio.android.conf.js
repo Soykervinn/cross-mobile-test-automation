@@ -11,12 +11,14 @@ exports.config = {
         'appium:app': '/Users/kervinn/Desktop/My Workspace/Appium/cross-mobile-test-automation/apps/dummy-example.apk',
         'appium:appPackage': 'com.play.universal',
         'appium:appActivity': '.MainActivity',
-        'appium:noReset': true,
-        'appium:fullReset': false,
+        'appium:noReset': false,
+        'appium:fullReset': true,
         'appium:dontStopAppOnReset': true,
         'appium:autoGrantPermissions': true,
         'appium:clearSystemFiles': false,
         'appium:clearPackageData': false,
+        'appium:autoAcceptAlerts': true,
+        'appium:autoDismissAlerts': true,
         'appium:newCommandTimeout': 180,
         'appium:androidDeviceReadyTimeout': 30,
         'appium:adbExecTimeout': 120000,
@@ -29,6 +31,8 @@ exports.config = {
         'appium:skipUnlock': true,
         'appium:disableWindowAnimation': true,
         'appium:waitForQuiescence': false,
+        'appium:waitForIdleTimeout': 0,
+        'appium:shouldTerminateApp': true,
         'appium:systemPort': 8201,
         'appium:enforceAppInstall': true,
         'appium:ignoreUnimportantViews': true,
@@ -64,5 +68,15 @@ exports.config = {
     mochaOpts: {
         ui: 'bdd',
         timeout: 180000
+    },
+
+    before: async function (capabilities, specs) {
+        // Wait for app to fully load
+        await browser.pause(5000);
+    },
+
+    beforeTest: async function (test, context) {
+        // Additional setup before each test
+        console.log(`Starting test: ${test.title}`);
     }
 } 
