@@ -4,7 +4,7 @@ const { config } = require('./wdio/wdio.conf');
 exports.config = {
     ...config,
     specs: [
-        path.resolve(__dirname, './tests/android/specs/login/login.test.js')
+        path.join(__dirname, '..', 'tests', 'android', 'specs', '**', '*.test.js')
     ],
     capabilities: [{
         platformName: 'Android',

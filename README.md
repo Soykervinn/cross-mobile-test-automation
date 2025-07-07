@@ -40,24 +40,29 @@ A robust, cross-platform mobile test automation framework built with WebdriverIO
 ## 📁 Project Structure
 
 ```bash
-├── tests/                  # Test files directory
-│   ├── android/           # Android-specific tests
-│   │   ├── pages/        # Android Page Objects
-│   │   └── specs/        # Android test specifications
-│   ├── ios/              # iOS-specific tests
-│   │   ├── pages/        # iOS Page Objects
-│   │   └── specs/        # iOS test specifications
-│   └── common/           # Shared code
-│       └── helpers/      # Common helper functions
-├── config/               # Configuration files
-│   └── wdio/            # WebdriverIO configurations
-├── utils/               # Utility functions
-│   └── driver/          # Driver factory and setup
-├── cli/                 # CLI tools
-├── reports/             # Test reports
-│   ├── allure-results/  # Allure report data
-│   └── screenshots/     # Failure screenshots
-└── apps/                # Mobile applications
+cross-mobile-test-automation/
+├── apps/
+├── cli/
+│   └── runTests.js
+├── config/
+│   ├── wdio/
+│   │   └── wdio.conf.js
+│   ├── wdio.android.conf.js
+│   ├── wdio.browserstack.conf.js
+│   ├── wdio.real-device.conf.js
+│   └── wdio.saucelabs.conf.js
+├── logs/
+├── reports/
+├── tests/
+│   ├── android/
+│   │   ├── pages/
+│   │   └── specs/
+│   ├── ios/
+│   │   ├── pages/
+│   │   └── specs/
+│   └── common/
+├── utils/
+└── package.json               # Mobile applications
 ```
 
 ## 🔧 Prerequisites
@@ -85,8 +90,8 @@ A robust, cross-platform mobile test automation framework built with WebdriverIO
 
 1. Clone the repository:
    ```bash
-   git clone [repository-url]
-   cd [repository-name]
+   git clone https://github.com/Soykervinn/cross-mobile-test-automation.git
+   cd cross-mobile-test-automation
    ```
 
 2. Install dependencies:
@@ -96,7 +101,7 @@ A robust, cross-platform mobile test automation framework built with WebdriverIO
 
 3. Set up environment variables:
    ```bash
-   cp .env.example .env
+   cp .env
    ```
    Edit `.env` file with your configuration.
 

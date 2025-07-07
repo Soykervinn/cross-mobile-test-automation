@@ -4,14 +4,12 @@
   "description": "Cross-platform mobile test automation framework with WebdriverIO and Appium",
   "main": "index.js",
   "scripts": {
-    "test": "wdio run ./wdio.conf.js",
-    "test:android": "PLATFORM=android wdio run ./wdio.conf.js --spec ./tests/android/specs/terms.spec.js",
-    "test:android:usb": "node cli/runTests.js --platform android --target usb",
-    "test:android:emulator": "node cli/runTests.js --platform android --target emulator",
+    "test:android:usb": "npx wdio config/wdio.real-device.conf.js",
+    "test:android:emulator": "npx wdio config/wdio.android.conf.js",
     "test:ios:simulator": "node cli/runTests.js --platform ios --target simulator",
     "test:ios:usb": "node cli/runTests.js --platform ios --target usb",
-    "test:saucelabs": "node cli/runTests.js --target saucelabs",
-    "test:browserstack": "node cli/runTests.js --target browserstack",
+    "test:saucelabs": "npx wdio config/wdio.saucelabs.conf.js",
+    "test:browserstack": "npx wdio config/wdio.browserstack.conf.js",
     "report": "allure generate reports/allure-results --clean && allure open"
   },
   "keywords": [

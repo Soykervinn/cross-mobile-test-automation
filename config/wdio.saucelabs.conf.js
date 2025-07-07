@@ -1,4 +1,5 @@
 const { config } = require('./wdio/wdio.conf.js');
+const path = require('path');
 
 exports.config = {
     ...config,
@@ -47,7 +48,7 @@ exports.config = {
     
     // Test specs
     specs: [
-        './tests/android/specs/**/*.test.js'
+        path.join(__dirname, '..', 'tests', 'android', 'specs', '**', '*.test.js')
     ],
     
     // Mocha options

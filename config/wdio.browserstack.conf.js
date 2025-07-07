@@ -31,7 +31,7 @@ exports.config = {
     
     // BrowserStack specific specs
     specs: [
-        path.resolve(__dirname, '../tests/android/specs/login/login.test.js')
+        path.join(__dirname, '..', 'tests', 'android', 'specs', '**', '*.test.js')
     ],
     
     // BrowserStack specific hooks
