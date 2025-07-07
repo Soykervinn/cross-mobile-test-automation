@@ -11,7 +11,7 @@ describe('App Navigation Feature', () => {
     });
 
     it('should explore what is currently displayed in the app', async () => {
-        // Screenshot inicial para depuración
+        // initial screen
         await browser.saveScreenshot('./reports/screenshots/initial_screen.png');
         
         // Get page source to see what elements are available
@@ -54,14 +54,14 @@ describe('App Navigation Feature', () => {
     });
 
     it('should display the Accept button on the cookies consent screen', async () => {
-        // Esperar a que la pantalla de cookies esté visible
+        // wait for 2 seconds to see the cookies consent screen
         await browser.pause(2000);
         
-        // Buscar el botón "Acepto" por resource-id y texto
+        // Search for the Accept button by resource-id and text
         const acceptButtonById = await $('android=new UiSelector().resourceId("com.play.universal:id/btn_accept_cookies")');
         const acceptButtonByText = await $('android=new UiSelector().text("Acepto")');
         
-        // Validar que al menos uno esté presente y visible
+        // validate that at least one is present and visible
         const isDisplayedById = await acceptButtonById.isDisplayed().catch(() => false);
         const isDisplayedByText = await acceptButtonByText.isDisplayed().catch(() => false);
         

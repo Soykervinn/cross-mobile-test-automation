@@ -3,7 +3,7 @@ describe('App Exploration', () => {
         // Wait for app to load
         await browser.pause(5000);
         
-        // Screenshot inicial para depuración
+        // Screenshot initial
         await browser.saveScreenshot('./reports/screenshots/exploration_initial_screen.png');
         
         // Get page source to see what elements are available
